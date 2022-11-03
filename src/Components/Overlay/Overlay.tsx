@@ -20,8 +20,8 @@ const Overlay: FC = () => {
 			drop: (item: IItem, monitor) => {
 				const delta = monitor.getDifferenceFromInitialOffset()
 
-				let deltaX = delta?.x ?? 0
-				let deltaY = delta?.y ?? 0
+				const deltaX = delta?.x ?? 0
+				const deltaY = delta?.y ?? 0
 
 				const containerX =
 					OverlayRef.current?.getBoundingClientRect().width ?? 0
@@ -29,16 +29,21 @@ const Overlay: FC = () => {
 				const containerY =
 					OverlayRef.current?.getBoundingClientRect().height ?? 0
 
-				if (deltaX + Position.x + item.width > containerX)
-					deltaX = containerX - Position.x - item.width
+				let newX = deltaX + Position.x
+				let newY = deltaY + Position.y
 
-				if (deltaY + Position.y + item.height > containerY)
-					deltaY = containerY - Position.y - item.height
+				if (newX + item.width > containerX)
+					newX = containerX - item.width
+				else if (newX < 0) newX = 0
 
-				SetPosition(prev => ({
-					x: prev.x + deltaX,
-					y: prev.y + deltaY,
-				}))
+				if (newY + item.height > containerY)
+					newY = containerY - item.height
+				else if (newY < 0) newY = 0
+
+				SetPosition({
+					x: newX,
+					y: newY,
+				})
 			},
 		}),
 		[OverlayRef, Position.x, Position.y]
