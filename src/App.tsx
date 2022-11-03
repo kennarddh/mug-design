@@ -1,14 +1,17 @@
 import { FC } from 'react'
 
-import Button from 'Components/Button'
+import Overlay from 'Components/Overlay/Overlay'
+
+import { Mug, Container, Content } from './AppStyles'
 
 const App: FC = () => {
 	return (
-		<div>
-			<div data-testid='custom-element'>heading</div>
-			<Button>Blue Button</Button>
-			<Button red>Red Button</Button>
-		</div>
+		<Container>
+			<Content>
+				<Mug src='Mugs/LightGray.jpg' alt='Mug' />
+				<Overlay />
+			</Content>
+		</Container>
 	)
 }
 
