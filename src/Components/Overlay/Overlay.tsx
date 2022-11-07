@@ -29,8 +29,11 @@ const Overlay: FC = () => {
 				const containerY =
 					OverlayRef.current?.getBoundingClientRect().height ?? 0
 
-				let newX = deltaX + Position.x
-				let newY = deltaY + Position.y
+				const positionX = (Position.x / 100) * containerX
+				const positionY = (Position.y / 100) * containerY
+
+				let newX = deltaX + positionX
+				let newY = deltaY + positionY
 
 				if (newX + item.width > containerX)
 					newX = containerX - item.width
@@ -40,9 +43,12 @@ const Overlay: FC = () => {
 					newY = containerY - item.height
 				else if (newY < 0) newY = 0
 
+				const percentageX = (newX / containerX) * 100
+				const percentageY = (newY / containerY) * 100
+
 				SetPosition({
-					x: newX,
-					y: newY,
+					x: percentageX,
+					y: percentageY,
 				})
 			},
 		}),

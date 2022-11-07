@@ -10,6 +10,6 @@ export const Container = styled.div<ContainerProps>`
 
 	position: absolute;
 
-	top: ${({ y }) => y}px;
-	left: ${({ x }) => x}px;
+	top: ${({ y }) => y}%;
+	left: ${({ x }) => x}%;
 `
