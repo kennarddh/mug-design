@@ -1,11 +1,13 @@
 import ItemTypes from 'Constants/ItemTypes'
-import type { IPosition, ISize } from 'Types'
+import type { ISize } from 'Types'
+
+import { XYCoord } from 'react-dnd'
 
 export interface Props {
 	type: keyof typeof ItemTypes
-	position: IPosition
+	position: XYCoord
 }
 
-export interface ContainerProps extends IPosition, ISize {
+export interface ContainerProps extends XYCoord, ISize {
 	isDragging: boolean
 }

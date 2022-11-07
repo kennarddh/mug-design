@@ -1,16 +1,16 @@
 import { FC, useState, useRef } from 'react'
 
-import { useDrop } from 'react-dnd'
+import { useDrop, XYCoord } from 'react-dnd'
 
 import BaseBlock from 'Components/BaseBlock/BaseBlock'
 import ItemTypes from 'Constants/ItemTypes'
 import { MergeRef } from 'Utils/MergeRef'
 
-import { IPosition, IItem } from 'Types'
+import { IItem } from 'Types'
 import { OuterContainer, Container } from './Styles'
 
 const Overlay: FC = () => {
-	const [Position, SetPosition] = useState<IPosition>({ x: 0, y: 0 })
+	const [Position, SetPosition] = useState<XYCoord>({ x: 0, y: 0 })
 
 	const OverlayRef = useRef<HTMLDivElement>(null)
 
