@@ -14,9 +14,7 @@ const ResizeHandle: FC<Props> = ({ setSize, size }) => {
 	const [, drag] = useDrag(
 		() => ({
 			type: ItemTypes.ResizeHandle,
-			item: () => {
-				return { width: size.width, height: size.height }
-			},
+			item: { width: size.width, height: size.height },
 		}),
 		[size.height, size.width]
 	)
