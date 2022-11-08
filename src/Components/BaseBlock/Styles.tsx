@@ -2,14 +2,15 @@ import styled from 'styled-components'
 
 import { ContainerProps } from './Types'
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div.attrs<ContainerProps>(props => ({
+	style: {
+		height: props.height,
+		width: props.width,
+		top: `${props.y}%`,
+		left: `${props.x}%`,
+	},
+}))<ContainerProps>`
 	border: 1px solid #000;
 
-	height: ${({ height }) => height}px;
-	width: ${({ width }) => width}px;
-
 	position: absolute;
-
-	top: ${({ y }) => y}%;
-	left: ${({ x }) => x}%;
 `
