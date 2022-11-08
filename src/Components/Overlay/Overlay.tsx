@@ -9,12 +9,12 @@ import ItemTypes from 'Constants/ItemTypes'
 
 import { MergeRef } from 'Utils/MergeRef'
 
-import { IItem } from 'Types'
+import { ISize, IItem } from 'Types'
 
 import { OuterContainer, Container } from './Styles'
 
 const Overlay: FC = () => {
-	const { Blocks, SetBlockPosition } = useContext(BlocksContext)
+	const { Blocks, SetBlockPosition, SetBlockSize } = useContext(BlocksContext)
 
 	const OverlayRef = useRef<HTMLDivElement>(null)
 
@@ -61,8 +61,23 @@ const Overlay: FC = () => {
 		[OverlayRef, Blocks]
 	)
 
+	const [, resizeDrop] = useDrop<ISize & { id: string }>(() => ({
+		accept: ItemTypes.ResizeHandle,
+		hover: (item, monitor) => {
+			const delta = monitor.getDifferenceFromInitialOffset()
+
+			const deltaX = delta?.x ?? 0
+			const deltaY = delta?.y ?? 0
+
+			SetBlockSize(item.id, {
+				width: item.width + deltaX,
+				height: item.height + deltaY,
+			})
+		},
+	}))
+
 	return (
-		<OuterContainer ref={MergeRef(drop, OverlayRef)}>
+		<OuterContainer ref={MergeRef(drop, OverlayRef, resizeDrop)}>
 			<Container>
 				{Object.entries(Blocks).map(([id]) => (
 					<BaseBlock key={id} type='Image' id={id} />

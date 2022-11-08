@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 import { FC, createContext, useState } from 'react'
 import ValueOrCallback from 'Utils/ValueOrCallback'
 
@@ -29,35 +30,30 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 	})
 
 	const SetBlock: ISetBlock = (id, dataOrCallback) => {
-		// eslint-disable-next-line security/detect-object-injection
 		const data = ValueOrCallback(dataOrCallback, [Blocks[id]])
 
 		SetBlocks(prev => ({ ...prev, [id]: data }))
 	}
 
 	const SetBlockSize: ISetBlockSize = (id, dataOrCallback) => {
-		// eslint-disable-next-line security/detect-object-injection
 		const data = ValueOrCallback(dataOrCallback, [Blocks[id].size])
 
 		SetBlocks(prev => ({
 			...prev,
 			[id]: {
-				// eslint-disable-next-line security/detect-object-injection
-				...Blocks[id],
+				...prev[id],
 				size: data,
 			},
 		}))
 	}
 
 	const SetBlockPosition: ISetBlockPosition = (id, dataOrCallback) => {
-		// eslint-disable-next-line security/detect-object-injection
 		const data = ValueOrCallback(dataOrCallback, [Blocks[id].position])
 
 		SetBlocks(prev => ({
 			...prev,
 			[id]: {
-				// eslint-disable-next-line security/detect-object-injection
-				...Blocks[id],
+				...prev[id],
 				position: data,
 			},
 		}))

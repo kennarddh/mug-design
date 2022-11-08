@@ -5,7 +5,9 @@ export const Handle = styled.div`
 
 	width: var(--size);
 	height: var(--size);
+
 	background-color: #f00;
+
 	top: calc(100% - (var(--size) / 2));
 	left: calc(100% - (var(--size) / 2));
 
