@@ -2,13 +2,15 @@ import { FC, useState } from 'react'
 
 import { useDrag } from 'react-dnd'
 
+import ResizeHandle from 'Components/ResizeHandle/ResizeHandle'
+
 import { Container } from './Styles'
 
 import type { Props } from './Types'
 import type { ISize } from 'Types'
 
 const Overlay: FC<Props> = ({ type, position }) => {
-	const [Size] = useState<ISize>({ width: 50, height: 50 })
+	const [Size, SetSize] = useState<ISize>({ width: 50, height: 50 })
 
 	const [{ isDragging }, drag] = useDrag(
 		() => ({
@@ -31,7 +33,9 @@ const Overlay: FC<Props> = ({ type, position }) => {
 			y={position.y}
 			width={Size.width}
 			height={Size.height}
-		></Container>
+		>
+			<ResizeHandle setSize={SetSize} size={Size} />
+		</Container>
 	)
 }
 

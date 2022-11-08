@@ -1,5 +1,6 @@
-const ItemTypes = {
-	Image: 'Image',
-} as const
+enum ItemTypes {
+	ResizeHandle = 'ResizeHandle',
+	Image = 'Image',
+}
 
 export default ItemTypes
