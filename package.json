@@ -84,6 +84,7 @@
 		"react-dnd": "^16.0.1",
 		"react-dnd-html5-backend": "^16.0.1",
 		"react-dom": "^18.2.0",
-		"styled-components": "^5.3.5"
+		"styled-components": "^5.3.5",
+		"uuid": "^9.0.0"
 	}
 }
