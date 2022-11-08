@@ -1,26 +1,32 @@
-import { FC, useState } from 'react'
+/* eslint-disable security/detect-object-injection */
+import { FC, useContext } from 'react'
 
 import { useDrag } from 'react-dnd'
+
+import BlocksContext from 'Contexts/Blocks/Blocks'
 
 import ResizeHandle from 'Components/ResizeHandle/ResizeHandle'
 
 import { Container } from './Styles'
 
 import type { Props } from './Types'
-import type { ISize } from 'Types'
 
-const Overlay: FC<Props> = ({ type, position }) => {
-	const [Size, SetSize] = useState<ISize>({ width: 50, height: 50 })
+const Overlay: FC<Props> = ({ type, id }) => {
+	const { Blocks } = useContext(BlocksContext)
 
 	const [{ isDragging }, drag] = useDrag(
 		() => ({
 			type: type,
-			item: { width: Size.width, height: Size.height },
+			item: {
+				width: Blocks[id].size.width,
+				height: Blocks[id].size.height,
+				id,
+			},
 			collect: monitor => ({
 				isDragging: !!monitor.isDragging(),
 			}),
 		}),
-		[Size.width, Size.height]
+		[Blocks[id].size.width, Blocks[id].size.height]
 	)
 
 	if (isDragging) return null
@@ -29,12 +35,12 @@ const Overlay: FC<Props> = ({ type, position }) => {
 		<Container
 			ref={drag}
 			isDragging={isDragging}
-			x={position.x}
-			y={position.y}
-			width={Size.width}
-			height={Size.height}
+			x={Blocks[id].position.x}
+			y={Blocks[id].position.y}
+			width={Blocks[id].size.width}
+			height={Blocks[id].size.height}
 		>
-			<ResizeHandle setSize={SetSize} size={Size} />
+			<ResizeHandle id={id} />
 		</Container>
 	)
 }

@@ -1,22 +1,32 @@
-import { FC } from 'react'
+/* eslint-disable security/detect-object-injection */
+import { FC, useContext } from 'react'
+
 import { useDrag, useDrop } from 'react-dnd'
 
 import ItemTypes from 'Constants/ItemTypes'
 
 import { MergeRef } from 'Utils/MergeRef'
 
+import BlocksContext from 'Contexts/Blocks/Blocks'
+
+import { ISize } from 'Types'
+
 import { Handle, Handles } from './Styles'
 
 import type { Props } from './Types'
-import { ISize } from 'Types'
 
-const ResizeHandle: FC<Props> = ({ setSize, size }) => {
+const ResizeHandle: FC<Props> = ({ id }) => {
+	const { Blocks, SetBlockSize } = useContext(BlocksContext)
+
 	const [, drag] = useDrag(
 		() => ({
 			type: ItemTypes.ResizeHandle,
-			item: { width: size.width, height: size.height },
+			item: {
+				width: Blocks[id].size.width,
+				height: Blocks[id].size.height,
+			},
 		}),
-		[size.height, size.width]
+		[Blocks[id].size.width, Blocks[id].size.height]
 	)
 
 	const [, drop] = useDrop<ISize>(() => ({
@@ -27,7 +37,7 @@ const ResizeHandle: FC<Props> = ({ setSize, size }) => {
 			const deltaX = delta?.x ?? 0
 			const deltaY = delta?.y ?? 0
 
-			setSize({
+			SetBlockSize(id, {
 				width: item.width + deltaX,
 				height: item.height + deltaY,
 			})

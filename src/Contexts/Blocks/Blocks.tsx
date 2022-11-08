@@ -21,7 +21,12 @@ const BlocksContext = createContext<IBlocksContext>({
 export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 	children,
 }) => {
-	const [Blocks, SetBlocks] = useState<IBlocks>({})
+	const [Blocks, SetBlocks] = useState<IBlocks>({
+		'adc4c703-0172-4974-98d1-ad26d604ac78': {
+			size: { width: 50, height: 50 },
+			position: { x: 0, y: 0 },
+		},
+	})
 
 	const SetBlock: ISetBlock = (id, dataOrCallback) => {
 		// eslint-disable-next-line security/detect-object-injection
@@ -73,4 +78,4 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 	)
 }
 
-export default BlocksContextProvider
+export default BlocksContext

@@ -5,7 +5,7 @@ import { XYCoord } from 'react-dnd'
 
 export interface Props {
 	type: keyof typeof ItemTypes
-	position: XYCoord
+	id: string
 }
 
 export interface ContainerProps extends XYCoord, ISize {

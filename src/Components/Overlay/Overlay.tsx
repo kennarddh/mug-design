@@ -1,23 +1,27 @@
-import { FC, useState, useRef } from 'react'
+import { FC, useRef, useContext } from 'react'
 
-import { useDrop, XYCoord } from 'react-dnd'
+import { useDrop } from 'react-dnd'
+
+import BlocksContext from 'Contexts/Blocks/Blocks'
 
 import BaseBlock from 'Components/BaseBlock/BaseBlock'
 import ItemTypes from 'Constants/ItemTypes'
+
 import { MergeRef } from 'Utils/MergeRef'
 
 import { IItem } from 'Types'
+
 import { OuterContainer, Container } from './Styles'
 
 const Overlay: FC = () => {
-	const [Position, SetPosition] = useState<XYCoord>({ x: 0, y: 0 })
+	const { Blocks, SetBlockPosition } = useContext(BlocksContext)
 
 	const OverlayRef = useRef<HTMLDivElement>(null)
 
-	const [, drop] = useDrop(
+	const [, drop] = useDrop<IItem>(
 		() => ({
 			accept: ItemTypes.Image,
-			drop: (item: IItem, monitor) => {
+			drop: (item, monitor) => {
 				const delta = monitor.getDifferenceFromInitialOffset()
 
 				const deltaX = delta?.x ?? 0
@@ -29,8 +33,10 @@ const Overlay: FC = () => {
 				const containerY =
 					OverlayRef.current?.getBoundingClientRect().height ?? 0
 
-				const positionX = (Position.x / 100) * containerX
-				const positionY = (Position.y / 100) * containerY
+				const positionX =
+					(Blocks[item.id].position.x / 100) * containerX
+				const positionY =
+					(Blocks[item.id].position.y / 100) * containerY
 
 				let newX = deltaX + positionX
 				let newY = deltaY + positionY
@@ -46,19 +52,21 @@ const Overlay: FC = () => {
 				const percentageX = (newX / containerX) * 100
 				const percentageY = (newY / containerY) * 100
 
-				SetPosition({
+				SetBlockPosition(item.id, {
 					x: percentageX,
 					y: percentageY,
 				})
 			},
 		}),
-		[OverlayRef, Position.x, Position.y]
+		[OverlayRef, Blocks]
 	)
 
 	return (
 		<OuterContainer ref={MergeRef(drop, OverlayRef)}>
 			<Container>
-				<BaseBlock type='Image' position={Position} />
+				{Object.entries(Blocks).map(([id]) => (
+					<BaseBlock key={id} type='Image' id={id} />
+				))}
 			</Container>
 		</OuterContainer>
 	)

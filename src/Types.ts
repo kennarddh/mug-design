@@ -8,4 +8,6 @@ export interface ISize {
 export type ReactSetState<T> = Dispatch<SetStateAction<T> | T>
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IItem extends ISize {}
+export interface IItem extends ISize {
+	id: string
+}
