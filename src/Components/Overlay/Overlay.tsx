@@ -13,7 +13,9 @@ import { ISize, IItem } from 'Types'
 
 import { OuterContainer, Container } from './Styles'
 
-const Overlay: FC = () => {
+import type { Props } from './Types'
+
+const Overlay: FC<Props> = ({ width, height }) => {
 	const { Blocks, SetBlockPosition, SetBlockSize } = useContext(BlocksContext)
 
 	const OverlayRef = useRef<HTMLDivElement>(null)
@@ -77,7 +79,11 @@ const Overlay: FC = () => {
 	}))
 
 	return (
-		<OuterContainer ref={MergeRef(drop, OverlayRef, resizeDrop)}>
+		<OuterContainer
+			ref={MergeRef(drop, OverlayRef, resizeDrop)}
+			width={width}
+			height={height}
+		>
 			<Container>
 				{Object.entries(Blocks).map(([id]) => (
 					<BaseBlock key={id} type='Image' id={id} />

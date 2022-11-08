@@ -1,10 +1,15 @@
 import styled from 'styled-components'
 
-export const OuterContainer = styled.div`
+import type { IOuterContainerProps } from './Types'
+
+export const OuterContainer = styled.div<IOuterContainerProps>`
 	position: absolute;
 	border: 1px solid #000;
 
-	inset: 50px 150px 75px 50px;
+	max-width: ${({ width }) => width}px;
+	max-height: ${({ height }) => height}px;
+
+	inset: 8% 30% 25% 10%;
 `
 
 export const Container = styled.div`
