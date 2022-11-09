@@ -4,6 +4,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import Overlay from 'Components/Overlay/Overlay'
+import Sidebar from 'Components/Sidebar/Sidebar'
 
 import { BlocksContextProvider } from 'Contexts/Blocks/Blocks'
 
@@ -29,6 +30,7 @@ const App: FC = () => {
 					</BlocksContextProvider>
 				</DndProvider>
 			</Content>
+			<Sidebar />
 		</Container>
 	)
 }

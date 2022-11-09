@@ -9,7 +9,7 @@ export const OuterContainer = styled.div<IOuterContainerProps>`
 	max-width: ${({ width }) => width}px;
 	max-height: ${({ height }) => height}px;
 
-	inset: 8% 30% 25% 10%;
+	inset: 8% 30% 18% 10%;
 `
 
 export const Container = styled.div`

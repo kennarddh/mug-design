@@ -6,8 +6,6 @@ export const Mug = styled.img`
 `
 
 export const Content = styled.div`
-	width: 500px;
-
 	position: relative;
 
 	grid-area: content;
@@ -19,8 +17,9 @@ export const Container = styled.div`
 
 	display: grid;
 
-	grid-template-areas:
-		'empty content sidebar'
-		'empty content sidebar'
-		'empty empty sidebar';
+	grid-template-columns: 0.6fr 1fr 0.6fr;
+
+	grid-column-gap: 24px;
+
+	grid-template-areas: '. content sidebar';
 `
