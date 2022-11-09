@@ -4,8 +4,8 @@ import { ContainerProps } from './Types'
 
 export const Container = styled.div.attrs<ContainerProps>(props => ({
 	style: {
-		height: props.height,
-		width: props.width,
+		height: `${props.height}%`,
+		width: `${props.width}%`,
 		top: `${props.y}%`,
 		left: `${props.x}%`,
 	},

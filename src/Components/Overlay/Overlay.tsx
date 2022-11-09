@@ -63,20 +63,40 @@ const Overlay: FC<Props> = ({ width, height }) => {
 		[OverlayRef, Blocks]
 	)
 
-	const [, resizeDrop] = useDrop<ISize & { id: string }>(() => ({
-		accept: ItemTypes.ResizeHandle,
-		hover: (item, monitor) => {
-			const delta = monitor.getDifferenceFromInitialOffset()
+	const [, resizeDrop] = useDrop<ISize & { id: string }>(
+		() => ({
+			accept: ItemTypes.ResizeHandle,
+			hover: (item, monitor) => {
+				const delta = monitor.getDifferenceFromInitialOffset()
 
-			const deltaX = delta?.x ?? 0
-			const deltaY = delta?.y ?? 0
+				const deltaX = delta?.x ?? 0
+				const deltaY = delta?.y ?? 0
 
-			SetBlockSize(item.id, {
-				width: item.width + deltaX,
-				height: item.height + deltaY,
-			})
-		},
-	}))
+				const containerX =
+					OverlayRef.current?.getBoundingClientRect().width ?? 0
+
+				const containerY =
+					OverlayRef.current?.getBoundingClientRect().height ?? 0
+
+				const deltaXPercentage = (deltaX / containerX) * 100
+				const deltaYPercentage = (deltaY / containerY) * 100
+
+				let newWidth = item.width + deltaXPercentage
+				let newHeight = item.height + deltaYPercentage
+
+				if (Blocks[item.id].position.x + newWidth > 100) newWidth = 100
+
+				if (Blocks[item.id].position.y + newHeight > 100)
+					newHeight = 100
+
+				SetBlockSize(item.id, {
+					width: newWidth,
+					height: newHeight,
+				})
+			},
+		}),
+		[Blocks]
+	)
 
 	return (
 		<OuterContainer

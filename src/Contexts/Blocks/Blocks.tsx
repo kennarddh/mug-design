@@ -24,7 +24,7 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 }) => {
 	const [Blocks, SetBlocks] = useState<IBlocks>({
 		'adc4c703-0172-4974-98d1-ad26d604ac78': {
-			size: { width: 50, height: 50 },
+			size: { width: 10, height: 10 },
 			position: { x: 0, y: 0 },
 		},
 	})
