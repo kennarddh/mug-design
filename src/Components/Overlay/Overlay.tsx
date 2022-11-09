@@ -35,24 +35,19 @@ const Overlay: FC<Props> = ({ width, height }) => {
 				const containerY =
 					OverlayRef.current?.getBoundingClientRect().height ?? 0
 
-				const positionX =
-					(Blocks[item.id].position.x / 100) * containerX
-				const positionY =
-					(Blocks[item.id].position.y / 100) * containerY
+				const deltaXPercentage = (deltaX / containerX) * 100
+				const deltaYPercentage = (deltaY / containerY) * 100
 
-				let newX = deltaX + positionX
-				let newY = deltaY + positionY
+				let percentageX = deltaXPercentage + Blocks[item.id].position.x
+				let percentageY = deltaYPercentage + Blocks[item.id].position.y
 
-				if (newX + item.width > containerX)
-					newX = containerX - item.width
-				else if (newX < 0) newX = 0
+				if (percentageX + item.width > 100)
+					percentageX = 100 - item.width
+				else if (percentageX < 0) percentageX = 0
 
-				if (newY + item.height > containerY)
-					newY = containerY - item.height
-				else if (newY < 0) newY = 0
-
-				const percentageX = (newX / containerX) * 100
-				const percentageY = (newY / containerY) * 100
+				if (percentageY + item.height > 100)
+					percentageY = 100 - item.height
+				else if (percentageY < 0) percentageY = 0
 
 				SetBlockPosition(item.id, {
 					x: percentageX,
