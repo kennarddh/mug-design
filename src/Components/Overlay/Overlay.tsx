@@ -78,10 +78,11 @@ const Overlay: FC<Props> = ({ width, height }) => {
 				let newWidth = item.width + deltaXPercentage
 				let newHeight = item.height + deltaYPercentage
 
-				if (Blocks[item.id].position.x + newWidth > 100) newWidth = 100
+				if (Blocks[item.id].position.x + newWidth > 100)
+					newWidth = 100 - Blocks[item.id].position.x
 
 				if (Blocks[item.id].position.y + newHeight > 100)
-					newHeight = 100
+					newHeight = 100 - Blocks[item.id].position.y
 
 				SetBlockSize(item.id, {
 					width: newWidth,
