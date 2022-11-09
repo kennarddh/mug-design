@@ -97,5 +97,6 @@ module.exports = {
 		],
 		'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
 		'react/react-in-jsx-scope': 'off',
+		'security/detect-object-injection': 'off',
 	},
 }

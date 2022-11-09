@@ -1,4 +1,3 @@
-/* eslint-disable security/detect-object-injection */
 import { FC, useContext, useEffect } from 'react'
 
 import { useDrag } from 'react-dnd'

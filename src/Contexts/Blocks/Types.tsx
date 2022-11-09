@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, RefObject } from 'react'
 import type { XYCoord } from 'react-dnd'
 import type { ISize, ReactSetState } from 'Types'
 
@@ -41,9 +41,10 @@ export type ISetBlockSize = (
 export interface IBlocksContext {
 	Blocks: IBlocks
 	SetBlocks: ReactSetState<IBlocks>
-	SelectedBlockId: string
-	SetSelectedBlockId: ReactSetState<string>
+	SelectedBlockId: string | null
+	SetSelectedBlockId: ReactSetState<string | null>
 	SetBlock: ISetBlock
 	SetBlockSize: ISetBlockSize
 	SetBlockPosition: ISetBlockPosition
+	OverlayRef: RefObject<HTMLDivElement> | null
 }

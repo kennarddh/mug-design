@@ -1,5 +1,4 @@
-/* eslint-disable security/detect-object-injection */
-import { FC, createContext, useState } from 'react'
+import { FC, createContext, useState, useRef } from 'react'
 import ValueOrCallback from 'Utils/ValueOrCallback'
 
 import type {
@@ -13,12 +12,13 @@ import type {
 
 const BlocksContext = createContext<IBlocksContext>({
 	Blocks: {},
-	SelectedBlockId: '',
+	SelectedBlockId: null,
 	SetBlocks: () => undefined,
 	SetBlock: () => undefined,
 	SetBlockSize: () => undefined,
 	SetBlockPosition: () => undefined,
 	SetSelectedBlockId: () => undefined,
+	OverlayRef: null,
 })
 
 export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
@@ -31,7 +31,9 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 		},
 	})
 
-	const [SelectedBlockId, SetSelectedBlockId] = useState<string>('')
+	const [SelectedBlockId, SetSelectedBlockId] = useState<string | null>(null)
+
+	const OverlayRef = useRef<HTMLDivElement>(null)
 
 	const SetBlock: ISetBlock = (id, dataOrCallback) => {
 		const data = ValueOrCallback(dataOrCallback, [Blocks[id]])
@@ -40,15 +42,17 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 	}
 
 	const SetBlockSize: ISetBlockSize = (id, dataOrCallback) => {
-		const data = ValueOrCallback(dataOrCallback, [Blocks[id].size])
+		SetBlocks(prev => {
+			const data = ValueOrCallback(dataOrCallback, [prev[id].size])
 
-		SetBlocks(prev => ({
-			...prev,
-			[id]: {
-				...prev[id],
-				size: data,
-			},
-		}))
+			return {
+				...prev,
+				[id]: {
+					...prev[id],
+					size: data,
+				},
+			}
+		})
 	}
 
 	const SetBlockPosition: ISetBlockPosition = (id, dataOrCallback) => {
@@ -73,6 +77,7 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 				SetBlockPosition,
 				SelectedBlockId,
 				SetSelectedBlockId,
+				OverlayRef,
 			}}
 		>
 			{children}

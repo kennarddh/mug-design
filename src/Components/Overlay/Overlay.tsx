@@ -1,4 +1,4 @@
-import { FC, useRef, useContext } from 'react'
+import { FC, useContext } from 'react'
 
 import { useDrop } from 'react-dnd'
 
@@ -16,9 +16,8 @@ import { OuterContainer, Container } from './Styles'
 import type { Props } from './Types'
 
 const Overlay: FC<Props> = ({ width, height }) => {
-	const { Blocks, SetBlockPosition, SetBlockSize } = useContext(BlocksContext)
-
-	const OverlayRef = useRef<HTMLDivElement>(null)
+	const { Blocks, SetBlockPosition, SetBlockSize, OverlayRef } =
+		useContext(BlocksContext)
 
 	const [, drop] = useDrop<IItem>(
 		() => ({
@@ -30,10 +29,10 @@ const Overlay: FC<Props> = ({ width, height }) => {
 				const deltaY = delta?.y ?? 0
 
 				const containerX =
-					OverlayRef.current?.getBoundingClientRect().width ?? 0
+					OverlayRef?.current?.getBoundingClientRect().width ?? 0
 
 				const containerY =
-					OverlayRef.current?.getBoundingClientRect().height ?? 0
+					OverlayRef?.current?.getBoundingClientRect().height ?? 0
 
 				const deltaXPercentage = (deltaX / containerX) * 100
 				const deltaYPercentage = (deltaY / containerY) * 100
@@ -68,10 +67,10 @@ const Overlay: FC<Props> = ({ width, height }) => {
 				const deltaY = delta?.y ?? 0
 
 				const containerX =
-					OverlayRef.current?.getBoundingClientRect().width ?? 0
+					OverlayRef?.current?.getBoundingClientRect().width ?? 0
 
 				const containerY =
-					OverlayRef.current?.getBoundingClientRect().height ?? 0
+					OverlayRef?.current?.getBoundingClientRect().height ?? 0
 
 				const deltaXPercentage = (deltaX / containerX) * 100
 				const deltaYPercentage = (deltaY / containerY) * 100
