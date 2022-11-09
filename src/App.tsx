@@ -21,16 +21,20 @@ const App: FC = () => {
 
 	return (
 		<Container>
-			<Content>
-				<Mug src='Mugs/LightGray.jpg' alt='Mug' ref={SetOverlaySize} />
+			<DndProvider backend={HTML5Backend}>
+				<BlocksContextProvider>
+					<Content>
+						<Mug
+							src='Mugs/LightGray.jpg'
+							alt='Mug'
+							ref={SetOverlaySize}
+						/>
 
-				<DndProvider backend={HTML5Backend}>
-					<BlocksContextProvider>
 						<Overlay width={Size} height={Size} />
-					</BlocksContextProvider>
-				</DndProvider>
-			</Content>
-			<Sidebar />
+					</Content>
+					<Sidebar />
+				</BlocksContextProvider>
+			</DndProvider>
 		</Container>
 	)
 }

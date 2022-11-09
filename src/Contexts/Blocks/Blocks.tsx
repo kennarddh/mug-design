@@ -13,10 +13,12 @@ import type {
 
 const BlocksContext = createContext<IBlocksContext>({
 	Blocks: {},
+	SelectedBlockId: '',
 	SetBlocks: () => undefined,
 	SetBlock: () => undefined,
 	SetBlockSize: () => undefined,
 	SetBlockPosition: () => undefined,
+	SetSelectedBlockId: () => undefined,
 })
 
 export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
@@ -28,6 +30,8 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 			position: { x: 0, y: 0 },
 		},
 	})
+
+	const [SelectedBlockId, SetSelectedBlockId] = useState<string>('')
 
 	const SetBlock: ISetBlock = (id, dataOrCallback) => {
 		const data = ValueOrCallback(dataOrCallback, [Blocks[id]])
@@ -67,6 +71,8 @@ export const BlocksContextProvider: FC<IBlocksContextProviderProps> = ({
 				SetBlock,
 				SetBlockSize,
 				SetBlockPosition,
+				SelectedBlockId,
+				SetSelectedBlockId,
 			}}
 		>
 			{children}

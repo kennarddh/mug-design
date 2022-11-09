@@ -41,6 +41,8 @@ export type ISetBlockSize = (
 export interface IBlocksContext {
 	Blocks: IBlocks
 	SetBlocks: ReactSetState<IBlocks>
+	SelectedBlockId: string
+	SetSelectedBlockId: ReactSetState<string>
 	SetBlock: ISetBlock
 	SetBlockSize: ISetBlockSize
 	SetBlockPosition: ISetBlockPosition

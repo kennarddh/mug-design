@@ -11,16 +11,20 @@ import { Container } from './Styles'
 
 import type { Props } from './Types'
 
-const Overlay: FC<Props> = ({ type, id }) => {
-	const { Blocks } = useContext(BlocksContext)
+const BaseBlock: FC<Props> = ({ type, id }) => {
+	const { Blocks, SetSelectedBlockId } = useContext(BlocksContext)
 
 	const [{ isDragging }, drag] = useDrag(
 		() => ({
 			type: type,
-			item: {
-				width: Blocks[id].size.width,
-				height: Blocks[id].size.height,
-				id,
+			item: () => {
+				Select()
+
+				return {
+					width: Blocks[id].size.width,
+					height: Blocks[id].size.height,
+					id,
+				}
 			},
 			collect: monitor => ({
 				isDragging: !!monitor.isDragging(),
@@ -29,10 +33,15 @@ const Overlay: FC<Props> = ({ type, id }) => {
 		[Blocks[id].size.width, Blocks[id].size.height]
 	)
 
+	const Select = () => {
+		SetSelectedBlockId(id)
+	}
+
 	if (isDragging) return null
 
 	return (
 		<Container
+			onClick={Select}
 			ref={drag}
 			isDragging={isDragging}
 			x={Blocks[id].position.x}
@@ -45,4 +54,4 @@ const Overlay: FC<Props> = ({ type, id }) => {
 	)
 }
 
-export default Overlay
+export default BaseBlock

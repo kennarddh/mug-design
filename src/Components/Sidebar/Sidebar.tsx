@@ -1,9 +1,13 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
+
+import BlocksContext from 'Contexts/Blocks/Blocks'
 
 import { Container } from './Styles'
 
 const Sidebar: FC = () => {
-	return <Container></Container>
+	const { SelectedBlockId } = useContext(BlocksContext)
+
+	return <Container>{SelectedBlockId}</Container>
 }
 
 export default Sidebar
