@@ -45,7 +45,7 @@ const Overlay: FC<Props> = ({ width, height }) => {
 				else if (percentageX < 0) percentageX = 0
 
 				if (percentageY + item.height > 100)
-					percentageY = 100 - item.height
+					percentageY = 100 - item.height + 0.1 // IDK
 				else if (percentageY < 0) percentageY = 0
 
 				SetBlockPosition(item.id, {
@@ -85,7 +85,7 @@ const Overlay: FC<Props> = ({ width, height }) => {
 					newWidth = 100 - Blocks[item.id].position.x
 
 				if (Blocks[item.id].position.y + newHeight > 100)
-					newHeight = 100 - Blocks[item.id].position.y
+					newHeight = 100 - Blocks[item.id].position.y + 0.1 // IDK
 
 				SetBlockSize(item.id, prev => ({
 					...prev,
