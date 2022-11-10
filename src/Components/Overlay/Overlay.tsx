@@ -9,7 +9,7 @@ import ItemTypes from 'Constants/ItemTypes'
 
 import { MergeRef } from 'Utils/MergeRef'
 
-import { ISize, IItem } from 'Types'
+import { ISize } from 'Types'
 
 import { OuterContainer, Container } from './Styles'
 
@@ -19,7 +19,7 @@ const Overlay: FC<Props> = ({ width, height }) => {
 	const { Blocks, SetBlockPosition, SetBlockSize, OverlayRef } =
 		useContext(BlocksContext)
 
-	const [, drop] = useDrop<IItem>(
+	const [, drop] = useDrop<ISize & { id: string }>(
 		() => ({
 			accept: ItemTypes.Image,
 			drop: (item, monitor) => {
@@ -73,7 +73,10 @@ const Overlay: FC<Props> = ({ width, height }) => {
 					OverlayRef?.current?.getBoundingClientRect().height ?? 0
 
 				const deltaXPercentage = (deltaX / containerX) * 100
-				const deltaYPercentage = (deltaY / containerY) * 100
+				const deltaYPercentage =
+					((Blocks[item.id].size.lockAspectRatio ? deltaX : deltaY) /
+						containerY) *
+					100
 
 				let newWidth = item.width + deltaXPercentage
 				let newHeight = item.height + deltaYPercentage
@@ -84,10 +87,11 @@ const Overlay: FC<Props> = ({ width, height }) => {
 				if (Blocks[item.id].position.y + newHeight > 100)
 					newHeight = 100 - Blocks[item.id].position.y
 
-				SetBlockSize(item.id, {
+				SetBlockSize(item.id, prev => ({
+					...prev,
 					width: newWidth,
 					height: newHeight,
-				})
+				}))
 			},
 		}),
 		[Blocks]

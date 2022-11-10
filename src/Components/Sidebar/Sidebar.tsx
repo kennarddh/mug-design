@@ -46,6 +46,15 @@ const Sidebar: FC = () => {
 		}))
 	}
 
+	const ToggleLockRatio = (): void => {
+		if (!SelectedBlockId) return
+
+		SetBlockSize(SelectedBlockId, prev => ({
+			...prev,
+			lockAspectRatio: !prev.lockAspectRatio,
+		}))
+	}
+
 	return (
 		<Container>
 			{SelectedBlockId ? (
@@ -53,6 +62,7 @@ const Sidebar: FC = () => {
 					<label htmlFor='sidebar-width'>
 						Width:{' '}
 						<input
+							id='sidebar-width'
 							type='number'
 							value={Math.floor(
 								PercentageToDecimal(
@@ -69,6 +79,7 @@ const Sidebar: FC = () => {
 					<label htmlFor='sidebar-height'>
 						Height:{' '}
 						<input
+							id='sidebar-height'
 							type='number'
 							value={Math.floor(
 								PercentageToDecimal(
@@ -80,6 +91,18 @@ const Sidebar: FC = () => {
 							min={0}
 							step={0}
 							max={bound?.height ?? 0}
+						/>
+					</label>
+					<label htmlFor='sidebar-lockAspectRatio'>
+						Lock Aspect Ratio:{' '}
+						<input
+							id='sidebar-lockAspectRatio'
+							type='checkbox'
+							checked={
+								Blocks[SelectedBlockId].size.lockAspectRatio ??
+								false
+							}
+							onChange={ToggleLockRatio}
 						/>
 					</label>
 				</>

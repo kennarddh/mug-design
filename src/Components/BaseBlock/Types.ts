@@ -8,6 +8,8 @@ export interface Props {
 	id: string
 }
 
-export interface ContainerProps extends XYCoord, ISize {
+export interface ContainerProps
+	extends XYCoord,
+		Omit<ISize, 'lockAspectRatio'> {
 	isDragging: boolean
 }
