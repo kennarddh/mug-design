@@ -6,7 +6,7 @@ import BlocksContext from 'Contexts/Blocks/Blocks'
 
 import ResizeHandle from 'Components/ResizeHandle/ResizeHandle'
 
-import { Container } from './Styles'
+import { Container, Inner } from './Styles'
 
 import type { Props } from './Types'
 
@@ -49,6 +49,12 @@ const BaseBlock: FC<Props> = ({ type, id }) => {
 			height={Blocks[id].size.height}
 		>
 			<ResizeHandle id={id} />
+			<Inner
+				width={Blocks[id].size.width}
+				height={Blocks[id].size.height}
+			>
+				a
+			</Inner>
 		</Container>
 	)
 }

@@ -13,3 +13,6 @@ export interface ContainerProps
 		Omit<ISize, 'lockAspectRatio'> {
 	isDragging: boolean
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface InnerProps extends Omit<ISize, 'lockAspectRatio'> {}
